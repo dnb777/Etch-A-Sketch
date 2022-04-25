@@ -1,6 +1,6 @@
 :root {
-	--col: 16;
-	--row: 16; 
+	--col: 0;
+	--row: 0; 
 }
 
 
@@ -35,10 +35,11 @@ html {
 	
 }
 #container {
-	max-width: 960px;
+	width: 600px;
+	height: 600px;
 	display: grid;
-	grid-template-columns: repeat(var(--col), 30px);
-	grid-template-rows: repeat(var(--row), 30px);
+	grid-template-columns: repeat(var(--col), 1fr);
+	grid-template-rows: repeat(var(--row), 1fr);
 	border: 5px solid black;
 }
 .square {
