@@ -2,7 +2,9 @@
 
 const container = document.querySelector("#container");
 const button = document.querySelector("#btn");
+const root = document.documentElement;
 const input = getGridSize();
+
 
 function getGridSize() {
 	let input = 0;
@@ -11,6 +13,9 @@ function getGridSize() {
 		if (input <= 100) break;
 		alert("To large");
 	}
+	input = Number(input);
+	root.style.setProperty('--col', input);
+	root.style.setProperty('--row', input);
 	return input;
 };
 
