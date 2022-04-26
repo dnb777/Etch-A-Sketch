@@ -3,42 +3,42 @@
 const container = document.querySelector("#container");
 const button = document.querySelector("#btn");
 const root = document.documentElement;
-const input = getGridSize();
 
 
 function getGridSize() {
-	let input = 0;
+	let userInput = 0;
 	while(true) {
-		input = prompt("How many squares per side do you want?", 0);
-		if (input <= 100) break;
+		userInput = prompt("How many squares per side do you want?", 0);
+		if (userInput <= 100) break;
 		alert("To large");
 	}
-	input = Number(input);
-	root.style.setProperty('--col', input);
-	root.style.setProperty('--row', input);
-	return input;
+	userInput = Number(userInput);
+	root.style.setProperty('--col', userInput);
+	root.style.setProperty('--row', userInput);
+	return userInput;
 };
 
 function addSquares(n) {
-	for (let i = 0; i < (input * input); i++){
+	for (let i = 0; i < (n * n); i++){
 		const div = document.createElement("div");
 		div.classList.add('square');
 		container.appendChild(div);
 	};
 };
 
-addSquares();
-
-const divs = container.querySelectorAll('.square');
-const paintSquare = divs.forEach((div) => {
-	div.addEventListener('mousemove', () => {
-		div.classList.add('black');
-	});
-});
-
 const resetGrid = button.addEventListener('click', () => {
+	const input = getGridSize();
+	const newGrid = addSquares(input);
+	
+	const divs = container.querySelectorAll('.square');
 	divs.forEach((div) => {
 		div.classList.remove('black');
+	});
+
+	const paintSquare = divs.forEach((div) => {
+		div.addEventListener('mousemove', () => {
+			div.classList.add('black');
+		});
 	});
 });
 
