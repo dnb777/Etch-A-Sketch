@@ -38,6 +38,7 @@ const clear = () => {
 	const divs = document.querySelectorAll('.square');
 	divs.forEach(div => {
 		div.style.backgroundColor = '';
+		color = 'black';
 	});
 };
 
