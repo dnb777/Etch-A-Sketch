@@ -17,7 +17,7 @@ let color = 'black';
 // change color when onclick event(inline js) is fired
 function changeColor(choice) {
 	color = choice;
-}
+};
 
 function draw() {
 	const divs = document.querySelectorAll('.square');
@@ -32,13 +32,14 @@ function draw() {
 			}
 		});
 	});
-}
+};
+
 const clear = () => {
 	const divs = document.querySelectorAll('.square');
 	divs.forEach(div => {
 		div.style.backgroundColor = '';
 	});
-}
+};
 
 
  // create a defautl 16x16 grid
