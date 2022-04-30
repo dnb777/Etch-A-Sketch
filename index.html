@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Etch-A-Sketch</title>
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Etch-a-Sketch</title>
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<div class="main">
-		<div class="button">
-			<button type="button" id="btn">New Grid</button>
-		</div>
-		<div id="container"></div>
-	</div>
-	
 
-	<script src="app.js"></script>
+  <header class="header">
+    <h1 class="title">Etch-a-Sketch</h1>
+  </header>
+
+  <main class="main">
+    <div class="config">
+      <button id="black" class="btn" onclick="changeColor('black')">Black</button>
+      <button id="rainbow" class="btn" onclick="changeColor('rainbow')">Rainbow</button>
+      <button id="eraser" class="btn" onclick="changeColor('white')">Eraser</button>
+      <button id="clear" class="btn">Clear</button>
+      <div class="size-value" id="sizeValue">16x16</div>
+      <input type="range" min="2" max="64" value="16" class="slider" id="myRange">
+    </div>
+    <div id="grid" class="grid">
+      
+    </div>
+  </main>
+
+  <script src="test.js"></script>
 </body>
 </html>

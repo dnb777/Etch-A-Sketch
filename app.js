@@ -1,60 +1,83 @@
-"use strict"
+"use strict";
 
-const container = document.querySelector("#container");
-const button = document.querySelector("#btn");
-const root = document.documentElement;
+const blackBtn = document.querySelector('#black');
+const rainbowBtn = document.querySelector('#rainbow');
+const eraserBtn = document.querySelector('#eraser');
+const clearBtn = document.querySelector('#clear');
 
+const gridContainer = document.querySelector('#grid');
 
-function addSquares(n) {
-	for (let i = 0; i < (n * n); i++){
-		const div = document.createElement("div");
-		div.classList.add('square');
-		container.appendChild(div);
-	};
-};
+const slider = document.querySelector('#myRange');
+const sizeValue = document.querySelector('#sizeValue');
+let value = 16;
 
-//Set the inicial grid to 16x16
-function defaultGrid() {
-	addSquares(16);
-	const divs = container.querySelectorAll('.square');
-	paintSquares(divs);
+sizeValue.textContent = `${slider.value}x${slider.value}`;
+
+let color = 'black';
+// change color when onclick event(inline js) is fired
+function changeColor(choice) {
+	color = choice;
 }
-defaultGrid();
 
-function paintSquares(divs) {
-	divs.forEach((div) => {
+function draw() {
+	const divs = document.querySelectorAll('.square');
+	divs.forEach(div => {
 		div.addEventListener('mousemove', () => {
-			div.classList.add('black');
+			if(color === 'black') {
+				div.style.backgroundColor = '#000';
+			}else if (color === 'white') {
+				div.style.backgroundColor = '#FFF';
+			}else if (color === 'rainbow') {
+				div.style.backgroundColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`;
+			}
 		});
 	});
-};
-
-//Ask user for input to set the scale of the grid, input has to be <= 100
-function getGridSize() {
-	let userInput = 0;
-	while(true) {
-		userInput = prompt("How many squares per side do you want?", 0);
-		if (userInput <= 100) break;
-		alert("To large");
-	}
-	userInput = Number(userInput);
-	root.style.setProperty('--col', userInput);//change the value of grid-template-column
-	root.style.setProperty('--row', userInput);//change the value of grid-template-row
-	return userInput;
-};
-
-const resetGrid = button.addEventListener('click', () => {
-	const input = getGridSize();
-	const newGrid = addSquares(input);
-	
-	//reset the background-color of the div's in the grid
-	const divs = container.querySelectorAll('.square');
-	divs.forEach((div) => {
-		div.classList.remove('black');
+}
+const clear = () => {
+	const divs = document.querySelectorAll('.square');
+	divs.forEach(div => {
+		div.style.backgroundColor = '';
 	});
-	paintSquares(divs);
-});
+}
 
 
+ // create a defautl 16x16 grid
+const defaultGrid = () => {
+	newGrid(16);
+	draw();
+};
+defaultGrid();
+
+
+// Generates a grid based on the value that is passed
+function newGrid(value) {
+	gridContainer.style.cssText = 
+	`grid-template-rows: repeat(${value}, 1fr); 
+	 grid-template-columns: repeat(${value}, 1fr)`;
+
+	for (let i = 0; i < (value * value); i++) {
+		const div = document.createElement('div');
+		div.classList.add('square');
+		gridContainer.appendChild(div);
+	};
+	color = 'black';
+	draw();
+};
+
+
+// When moving the slider, passes the corresponging value to the "value" variable and calls the newGrid function with that value
+slider.oninput = function() {
+  sizeValue.textContent = `${this.value}x${this.value}`;
+  value = this.value;
+  clear();
+  newGrid(value);
+};
+
+
+
+// blackBtn.addEventListener('click', draw);
+// eraserBtn.addEventListener('click', draw);
+clearBtn.addEventListener('click', clear);
+// rainbowBtn.addEventListener('click', draw);
 
 
